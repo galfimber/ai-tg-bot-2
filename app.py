@@ -10,8 +10,9 @@ from bot import bot, dp
 from config import SECRET_TOKEN, WEBHOOK_PATH
 
 async def on_startup(app):
-    webhook_url=f"{os.getenv('WEBHOOK_HOST')}{WEBHOOK_PATH}"
-    await bot.set_webhook(webhook_url, secret_token=SECRET_TOKEN)
+    # webhook_url=f"{os.getenv('WEBHOOK_HOST')}{WEBHOOK_PATH}"
+    # await bot.set_webhook(webhook_url, secret_token=SECRET_TOKEN)
+    print("Bot started")
 
 app = web.Application()
 SimpleRequestHandler(dispatcher=dp, bot=bot, secret_token=SECRET_TOKEN).register(app, path=WEBHOOK_PATH)
