@@ -2,8 +2,7 @@
 
 import os
 from aiohttp import web
-from aiogram.webhook.aiohttp_server import setup_application
-from aiogram.webhook import SimpleRequestHandler
+from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
 # Импорты из других файлов
 from bot import bot, dp
