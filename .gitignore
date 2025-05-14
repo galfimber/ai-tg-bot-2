@@ -1,0 +1,5 @@
+*.рус
+__pycache__
+.env
+*.db
+*.log
