@@ -1,17 +1,20 @@
 # config.py
 
-from os import getenv
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Токены и ключи API (берутся из переменных окружения)
-BOT_TOKEN = getenv("BOT_TOKEN")
-OPENROUTER_API_KEY = getenv("OPENROUTER_API_KEY")
-REPLICATE_API_TOKEN = getenv("REPLICATE_API_TOKEN")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
 
 # Webhook
-WEBHOOK_HOST = getenv("WEBHOOK_HOST", "ai-tg-bot-2.railway.internal")
+WEBHOOK_HOST = os.getenv("WEBHOOK_HOST", "https://ai-tg-bot-2.onrender.com")
 WEBHOOK_PATH = "/webhook"
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
-SECRET_TOKEN = getenv("SECRET_TOKEN")
+SECRET_TOKEN = os.getenv("SECRET_TOKEN")
 
 # Модели AI
 TEXT_MODEL = "google/gemma-7b-it"
