@@ -8,10 +8,10 @@ OPENROUTER_API_KEY = getenv("OPENROUTER_API_KEY")
 REPLICATE_API_TOKEN = getenv("REPLICATE_API_TOKEN")
 
 # Webhook
-WEBHOOK_HOST = getenv("WEBHOOK_HOST", "https://your-project.up.railway.app")
+WEBHOOK_HOST = getenv("WEBHOOK_HOST", "ai-tg-bot-2.railway.internal")
 WEBHOOK_PATH = "/webhook"
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
-SECRET_TOKEN = getenv("SECRET_TOKEN", "your_secret_token_here")
+SECRET_TOKEN = getenv("SECRET_TOKEN")
 
 # Модели AI
 TEXT_MODEL = "google/gemma-7b-it"
