@@ -1,23 +1,33 @@
 # app.py
 
 import os
-import asyncio
 from aiohttp import web
-from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
+from aiogram.webhook.aiohttp_server import setup_application
+from aiogram.webhook import SimpleRequestHandler
 
-# Импорты
+# Импорты из других файлов
 from bot import bot, dp
-from config import SECRET_TOKEN, WEBHOOK_PATH
 
 async def on_startup(app):
-    # webhook_url=f"{os.getenv('WEBHOOK_HOST')}{WEBHOOK_PATH}"
-    # await bot.set_webhook(webhook_url, secret_token=SECRET_TOKEN)
-    print("Bot started")
+    print("✅ Бот успешно запущен")
+    webhook_url = f"{os.getenv('WEBHOOK_HOST')}/webhook"
+    try:
+        await bot.set_webhook(webhook_url)
+        print(f"🟢 Webhook установлен: {webhook_url}")
+    except Exception as e:
+        print(f"⚠️ Не удалось установить webhook: {e}")
+
+async def handle_request(request):
+    print("📥 Получен запрос:", request.method, request.path, dict(request.headers))
+    return web.Response(text="OK", status=200)
 
 app = web.Application()
-SimpleRequestHandler(dispatcher=dp, bot=bot, secret_token=SECRET_TOKEN).register(app, path=WEBHOOK_PATH)
+app.router.add_get("/webhook", handle_request)  # GET для проверки
+app.router.add_post("/webhook", handle_request)  # POST от Telegram
+
 setup_application(app, dp, bot=bot)
 app.on_startup.append(on_startup)
 
 if __name__ == "__main__":
-    web.run_app(app, host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
+    port = int(os.getenv("PORT", 10000))  # Render использует порт 10000
+    web.run_app(app, host="0.0.0.0", port=port)
